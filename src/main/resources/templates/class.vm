@@ -1,6 +1,8 @@
 <html>
 <head>
-<title>${clazz.name()}</title>
+	<!-- ${clazz.aboutMessage()} -->
+	<title>${clazz.name()}</title>
+	<link rel="stylesheet" href="../../css/style.css" type="text/css"/>
 </head>
 <body>
 <b>${clazz.thePackage()}</b>

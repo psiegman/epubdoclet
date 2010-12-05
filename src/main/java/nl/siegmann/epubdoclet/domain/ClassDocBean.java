@@ -11,6 +11,8 @@ import com.sun.javadoc.MethodDoc;
  */
 public class ClassDocBean extends ClassDocWrapper {
 
+	private String aboutMessage;
+	
 	public ClassDocBean(ClassDoc classDoc) {
 		super(classDoc);
 	}
@@ -30,5 +32,13 @@ public class ClassDocBean extends ClassDocWrapper {
 
 	public void setClassDoc(ClassDoc classDoc) {
 		this.classDoc = classDoc;
+	}
+
+	public String aboutMessage() {
+		return aboutMessage;
+	}
+	
+	public void setAboutMessage(String aboutMessage) {
+		this.aboutMessage = aboutMessage;
 	}
 }

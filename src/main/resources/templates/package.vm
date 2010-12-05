@@ -1,5 +1,8 @@
 <html>
-<head><title>${package.name()}</title></head>
+<head>
+	<title>${package.name()}</title>
+	<link rel="stylesheet" href="../../css/style.css" type="text/css"/>
+</head>
 <body>
 <h1>${package.name()}</h1>
 <p>${package.description()}</p>

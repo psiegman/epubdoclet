@@ -1,0 +1,15 @@
+<html>
+<head>
+<title>${clazz.name()}</title>
+</head>
+<body>
+<b>${clazz.thePackage()}</b>
+<h1>${clazz.name()}</h1>
+<p>
+${clazz.rawCommentText}
+</p>
+#foreach( $method in $clazz.methods() )
+	${method.name()}<br/>
+#end
+</body>
+</html>

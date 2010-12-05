@@ -1,0 +1,7 @@
+<html>
+<head><title>${package.name()}</title></head>
+<body>
+<h1>${package.name()}</h1>
+<p>${package.description()}</p>
+</body>
+</html>

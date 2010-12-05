@@ -70,6 +70,7 @@ public class EpubDoclet {
         result.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
         result.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
         result.setProperty("runtime.references.strict", true);
+        result.setProperty("runtime.log.logsystem.class", "org.apache.velocity.runtime.log.NullLogSystem");
         result.init();
 	    return result;
     }

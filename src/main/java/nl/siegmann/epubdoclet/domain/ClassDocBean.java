@@ -9,20 +9,30 @@ import com.sun.javadoc.MethodDoc;
  * @author paul
  *
  */
-public class ClassDocBean extends ClassDocWrapper {
+public class ClassDocBean extends ClassDocBeanBase {
 
 	private String aboutMessage;
 	
 	public ClassDocBean(ClassDoc classDoc) {
 		super(classDoc);
 	}
+
+	public MethodDoc[] getMethods() {
+		MethodDoc[] sourceMethodDocs = classDoc.methods();
+		MethodDoc[] result = new MethodDoc[sourceMethodDocs.length];
+		for (int i = 0; i < sourceMethodDocs.length; i++) {
+			result[i] = new MethodDocBean(sourceMethodDocs[i]);
+		}
+		return result;
+	}
+	
 	
 	public void getMethodDocBeans() {
 		MethodDoc[] methodDocs = classDoc.methods();
 		
 	}
 
-	public String thePackage() {
+	public String getPackage() {
 		return qualifiedName().substring(0, qualifiedTypeName().lastIndexOf('.'));
 	}
 
@@ -34,7 +44,7 @@ public class ClassDocBean extends ClassDocWrapper {
 		this.classDoc = classDoc;
 	}
 
-	public String aboutMessage() {
+	public String getAboutMessage() {
 		return aboutMessage;
 	}
 	

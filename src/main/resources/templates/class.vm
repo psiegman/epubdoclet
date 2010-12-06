@@ -1,17 +1,34 @@
 <html>
 <head>
-	<!-- ${clazz.aboutMessage()} -->
-	<title>${clazz.name()}</title>
+	<!-- ${clazz.aboutMessage} -->
+	<title>${clazz.name}</title>
 	<link rel="stylesheet" href="../../css/style.css" type="text/css"/>
 </head>
 <body>
-<b>${clazz.thePackage()}</b>
-<h1>${clazz.name()}</h1>
+<b>${clazz.package}</b>
+<h1>${clazz.name}</h1>
 <p>
-${clazz.rawCommentText}
+${clazz.commentText}
 </p>
-#foreach( $method in $clazz.methods() )
-	${method.name()}<br/>
+<table>
+<tr>
+<td colspan="2"><h2>Method summary</h2></td>
+</tr>
+#foreach( $method in $clazz.methods )
+<tr>
+	<td>${method.modifiers} ${method.returnType.typeName()}</td>
+	<td>${method.name}(
+	#foreach( $parameter in $method.parameters() )
+		 #if( $velocityCount > 1 )
+		 ,
+		 #end
+		${parameter.typeName()} ${parameter.name()}
+		
+	#end
+	)
+	<br/>${method.commentFirstLine}</td>
+</tr>
 #end
+</table>
 </body>
 </html>

@@ -42,7 +42,7 @@ public class EpubDoclet {
 		ClassDoc[] classDocs = root.classes();
 		Book book = new Book();
 		for (int i = 0; i < classDocs.length; i++) {
-			System.out.println("classdoc:" + classDocs[i].name());
+//			System.out.println("classdoc:" + classDocs[i].name());
 			processClassDoc(classDocs[i], template, book);
 		}
 		fixEmptyPackageDescriptions(velocityEngine, book);
@@ -88,7 +88,7 @@ public class EpubDoclet {
         book.addResource(resource);
         book.getSpine().addResource(resource);
         book.getTableOfContents().addResourceAtLocation(resource, "classes." + classDocBean.qualifiedName(), "\\.");
-        book.getGuide().addReference(new GuideReference(resource, "other.java.class", classDocBean.qualifiedName()));
+        book.getGuide().addReference(new GuideReference(resource, "other.java.class", classDocBean.name()));
 	}
 	
 	private static void fixEmptyPackageDescriptions(VelocityEngine velocityEngine, Book book) {

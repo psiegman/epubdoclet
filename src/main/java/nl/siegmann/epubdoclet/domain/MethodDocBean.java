@@ -1,22 +1,27 @@
 package nl.siegmann.epubdoclet.domain;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.sun.javadoc.MethodDoc;
 
-public class MethodDocBean {
+public class MethodDocBean extends MethodDocBeanBase {
 
-	private MethodDoc methodDoc;
-	
 	public MethodDocBean(MethodDoc methodDoc) {
-		this.methodDoc = methodDoc;
+		super(methodDoc);
 	}
 
-	public String getName() {
-		return methodDoc.name();
+
+	public String getCommentFirstLine() {
+		String result = StringUtils.substringBefore(getCommentText(), ".");
+		if (StringUtils.isNotBlank(result)) {
+			result += ".";
+		}
+		return result;
 	}
 	
-	public TypeDocBean getReturnType() {
-		return new TypeDocBean(methodDoc.returnType());
-	}
+//	public Type getReturnType() {
+//		return new TypeDocBean(methodDoc.returnType());
+//	}
 	
 	public MethodDoc getMethodDoc() {
 		return methodDoc;

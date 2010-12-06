@@ -57,8 +57,8 @@ public class EpubDoclet {
 
 	private static void addResources(Book book) {
 		try {
-			Resource styleCssResource = new Resource(EpubDoclet.class.getResourceAsStream("/resources/css/style.css"), "css/style.css");
-			book.addResource(styleCssResource);
+			book.addResource(new Resource(EpubDoclet.class.getResourceAsStream("/resources/css/style.css"), "css/style.css"));
+			book.addResource(new Resource(EpubDoclet.class.getResourceAsStream("/resources/css/style.css"), "css/reset.css"));
 		} catch (IOException e) {
 			log.error(e.getMessage());
 		}

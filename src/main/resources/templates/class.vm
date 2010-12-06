@@ -2,6 +2,7 @@
 <head>
 	<!-- ${clazz.aboutMessage} -->
 	<title>${clazz.name}</title>
+	<link rel="stylesheet" href="../../css/reset.css" type="text/css"/>
 	<link rel="stylesheet" href="../../css/style.css" type="text/css"/>
 </head>
 <body>
@@ -12,21 +13,15 @@ ${clazz.commentText}
 </p>
 <table>
 <tr>
-<td colspan="2"><h2>Method summary</h2></td>
+<td colspan="2" class="tableheader">Method summary</td>
 </tr>
 #foreach( $method in $clazz.methods )
 <tr>
 	<td>${method.modifiers} ${method.returnType.typeName()}</td>
-	<td>${method.name}(
-	#foreach( $parameter in $method.parameters() )
-		 #if( $velocityCount > 1 )
-		 ,
-		 #end
-		${parameter.typeName()} ${parameter.name()}
-		
-	#end
-	)
-	<br/>${method.commentFirstLine}</td>
+	<td>
+		<span class="method-name">${method.name}</span>(#foreach($parameter in $method.parameters())#if($velocityCount > 1), #end${parameter.typeName()} ${parameter.name()}#end)<br/>
+		<span class="first-line">${method.commentFirstLine}</span>
+	</td>
 </tr>
 #end
 </table>

@@ -3,13 +3,14 @@ package nl.siegmann.epubdoclet;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 import nl.siegmann.epubdoclet.domain.ClassDocBean;
 import nl.siegmann.epubdoclet.domain.DummyPackageBean;
 import nl.siegmann.epublib.domain.Book;
-import nl.siegmann.epublib.domain.GuideReference;
 import nl.siegmann.epublib.domain.Resource;
 import nl.siegmann.epublib.domain.TOCReference;
 import nl.siegmann.epublib.epub.EpubWriter;
@@ -24,9 +25,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.sun.javadoc.ClassDoc;
+import com.sun.javadoc.Doclet;
 import com.sun.javadoc.RootDoc;
 
-public class EpubDoclet {
+public class EpubDoclet extends Doclet {
 
 	private static final Logger log = LoggerFactory.getLogger(EpubDoclet.class);
 	
@@ -40,12 +42,17 @@ public class EpubDoclet {
 		VelocityEngine velocityEngine = createVelocityEngine();
 		Template template = getTemplate("class", velocityEngine);
 		ClassDoc[] classDocs = root.classes();
-		Book book = new Book();
+		List<ClassDocBean> classDocBeans = new ArrayList<ClassDocBean>(classDocs.length);
 		for (int i = 0; i < classDocs.length; i++) {
-//			System.out.println("classdoc:" + classDocs[i].name());
-			processClassDoc(classDocs[i], template, book);
+			classDocBeans.add(new ClassDocBean(classDocs[i]));
+		}
+		Collections.sort(classDocBeans, ClassDocBean.getComparatorByQualifiedNameIgnoreCase());
+		Book book = new Book();
+		for(ClassDocBean classDocBean: classDocBeans) {
+			processClassDoc(classDocBean, template, book);
 		}
 		fixEmptyPackageDescriptions(velocityEngine, book);
+		Collections.sort(book.getTableOfContents().getTocReferences().get(0).getChildren().get(0).getChildren(), TOCReference.getComparatorByTitleIgnoreCase());
 		addResources(book);
 		try {
 			(new EpubWriter()).write(book, new FileOutputStream("javadoc.epub"));
@@ -87,8 +94,8 @@ public class EpubDoclet {
         Resource resource = createResource(classDocBean, template);
         book.addResource(resource);
         book.getSpine().addResource(resource);
-        book.getTableOfContents().addResourceAtLocation(resource, "classes." + classDocBean.qualifiedName(), "\\.");
-        book.getGuide().addReference(new GuideReference(resource, "other.java.class", classDocBean.name()));
+        book.getTableOfContents().addResourceAtLocation(resource, "classes/list/" + classDocBean.getName(), "/");
+        book.getTableOfContents().addResourceAtLocation(resource, "classes.tree." + classDocBean.qualifiedName(), "\\.");
 	}
 	
 	private static void fixEmptyPackageDescriptions(VelocityEngine velocityEngine, Book book) {

@@ -1,4 +1,4 @@
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<!-- ${clazz.aboutMessage} -->
 	<title>${clazz.name}</title>
@@ -7,11 +7,25 @@
 </head>
 <body>
 <b>${clazz.package}</b>
-<h1>${clazz.name}</h1>
+<h1>${clazz.name} #if($clazz.interface)<span class="is-interface">(interface)</span>#end</h1>
 <p>
 ${clazz.commentText}
 </p>
-<table>
+<table class="field-index">
+<tr>
+<td colspan="2" class="tableheader">Field summary</td>
+</tr>
+#foreach( $field in $clazz.fieldDocBeans )
+<tr>
+	<td>${field.modifiers} ${field.type.typeName()}</td>
+	<td>
+		<span class="field-name"><a href="#${field.fieldId}">${field.name}</a></span><br/>
+		<span class="first-line">${field.commentFirstLine}</span>
+	</td>
+</tr>
+#end
+</table>
+<table class="method-index">
 <tr>
 <td colspan="2" class="tableheader">Method summary</td>
 </tr>
@@ -19,11 +33,33 @@ ${clazz.commentText}
 <tr>
 	<td>${method.modifiers} ${method.returnType.typeName()}</td>
 	<td>
-		<span class="method-name">${method.name}</span>(#foreach($parameter in $method.parameters())#if($velocityCount > 1), #end${parameter.typeName()} ${parameter.name()}#end)<br/>
+		<span class="method-name"><a href="#${method.methodId}">${method.name}</a></span>(#foreach($parameter in $method.parameters())#if($velocityCount > 1), #end${parameter.typeName()} ${parameter.name()}#end)<br/>
 		<span class="first-line">${method.commentFirstLine}</span>
 	</td>
 </tr>
 #end
 </table>
+<div class="fields">
+#foreach( $field in $clazz.fieldDocBeans )
+<div class="field">
+	<div class="title"><a name="${field.fieldId}" id="${field.fieldId}">${field.name}</a></div>
+	<div class="type">${field.type.typeName()}</div>
+	<div class="modifiers">${field.modifiers}</div>
+	<div class="name">${field.name}</div>
+	<div class="comment">${field.commentText}</div>
+</div>
+#end
+</div>
+<div class="methods">
+#foreach( $method in $clazz.methods )
+<div class="method">
+	<div class="title"><a name="${method.methodId}" id="${method.methodId}">${method.name}</a></div>
+	<div class="modifiers">${method.modifiers}</div>
+	<div class="return-type">${method.returnType.typeName()}</div>
+	<div class="name">${method.name}</div>(#foreach($parameter in $method.parameters())#if($velocityCount > 1), #end${parameter.typeName()} ${parameter.name()}#end)
+	<div class="comment">${method.commentText}</div>
+</div>
+#end
+</div>
 </body>
 </html>

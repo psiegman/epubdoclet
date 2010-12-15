@@ -2,6 +2,72 @@ body {
 	background-color: #ffffff;
 }
 
+.field {
+	border-bottom: 1px solid #c0c0c0;
+	margin: 1em 0 1em 0;
+	padding: 0.5em 0 0.5em 0;
+}
+
+.field .title {
+	display: block;
+	font-size: 2em;
+	font-weight: bold;
+}
+
+.field .modifiers {
+	display: inline;
+}
+
+.field .type {
+	display: inline;
+}
+
+.field .modifiers {
+	display: inline;
+}
+
+.field .name {
+	font-weight: bold;
+	display: inline;
+}
+
+.field .comment {
+	margin-left: 2em;
+}
+	
+.method {
+	border-bottom: 1px solid #c0c0c0;
+	margin: 1em 0 1em 0;
+	padding: 0.5em 0 0.5em 0;
+}
+
+.method .title {
+	display: block;
+	font-size: 2em;
+	font-weight: bold;
+}
+
+.method .modifiers {
+	display: inline;
+}
+
+.method .return-type {
+	display: inline;
+}
+
+.method .modifiers {
+	display: inline;
+}
+
+.method .name {
+	font-weight: bold;
+	display: inline;
+}
+
+.method .comment {
+	margin-left: 2em;
+}
+	
 .tableheader {
 	background: #6bbedd;
 }

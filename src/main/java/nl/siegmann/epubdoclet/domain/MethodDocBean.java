@@ -1,8 +1,7 @@
 package nl.siegmann.epubdoclet.domain;
 
-import org.apache.commons.lang.StringUtils;
-
 import com.sun.javadoc.MethodDoc;
+import com.sun.javadoc.Parameter;
 
 public class MethodDocBean extends MethodDocBeanBase {
 
@@ -10,13 +9,15 @@ public class MethodDocBean extends MethodDocBeanBase {
 		super(methodDoc);
 	}
 
-
-	public String getCommentFirstLine() {
-		String result = StringUtils.substringBefore(getCommentText(), ".");
-		if (StringUtils.isNotBlank(result)) {
-			result += ".";
+	public String getMethodId() {
+		StringBuilder result = new StringBuilder();
+		for(Parameter parameter : getParameters()) {
+			if (result.length() > 0) {
+				result.append(", ");
+			}
+			result.append(parameter.type().qualifiedTypeName());
 		}
-		return result;
+		return getName() + "(" + result.toString() + ")";
 	}
 	
 //	public Type getReturnType() {

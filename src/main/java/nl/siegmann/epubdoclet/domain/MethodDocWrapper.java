@@ -13,11 +13,12 @@ import com.sun.javadoc.ThrowsTag;
 import com.sun.javadoc.Type;
 import com.sun.javadoc.TypeVariable;
 
-public class MethodDocWrapper implements MethodDoc {
+public class MethodDocWrapper extends ProgramElementDocBean implements MethodDoc {
 
 	protected MethodDoc methodDoc;
 
 	public MethodDocWrapper(MethodDoc methodDoc) {
+		super(methodDoc);
 		this.methodDoc = methodDoc;
 	}
 	
